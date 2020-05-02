@@ -1116,7 +1116,26 @@
          <web:sCountryISOCode>IN</web:sCountryISOCode>\r
       </web:CapitalCity>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="9f37d3af-21e0-450c-8119-49999bf934e3" name="Contains 1"><con:configuration><token/><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="b702925c-04be-4491-9d6e-d798e7c4a2b7" name="Contains"><con:configuration><token/><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.oorsprong.org/websamples.countryinfo/CountryInfoServiceSoapType/CapitalCityRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="AssertionXML" id="a2c64e92-fd4f-4877-9981-ff88b8cfdf77"><con:settings/><con:config><script>// check response time
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="9f37d3af-21e0-450c-8119-49999bf934e3" name="Contains 1"><con:configuration><token/><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="b702925c-04be-4491-9d6e-d798e7c4a2b7" name="Contains"><con:configuration><token/><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.oorsprong.org/websamples.countryinfo/CountryInfoServiceSoapType/CapitalCityRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="1ecd3d97-bb68-4311-86ab-9475b335a339" name="CountryCurrency"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CountryInfoServiceSoapBinding</con:interface><con:operation>CountryCurrency</con:operation><con:request name="CountryCurrency" id="9a076016-4804-46d9-94b6-74f84cf083c4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://www.oorsprong.org/websamples.countryinfo">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <web:CountryCurrency>\r
+         <web:sCountryISOCode>IN</web:sCountryISOCode>\r
+      </web:CountryCurrency>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="3fe7a207-5ec3-4838-9d34-6b534d2be5fd" name="Contains"><con:configuration><token>INR</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple NotContains" id="a55779ac-b9c0-423d-8b99-2748ed6f623f" name="Not Contains"><con:configuration><token>Nigeria</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="XPath Match" id="8a5f5565-83a3-47e3-9204-3e9cfafc9cce" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace m='http://www.oorsprong.org/websamples.countryinfo';
+
+//m:sName</path><content>Rupees</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" id="6dc6142c-5213-4bb8-8974-cb2d7edc860c"><con:configuration/></con:assertion><con:assertion type="XQuery Match" id="70ed7673-6fd3-4bfc-8d18-256d34d1bddb" name="XQuery Match"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="ed1933e7-6a94-4ed8-906c-299ef36102bc" name="Not SOAP Fault"/><con:assertion type="Not SOAP Fault Assertion" id="0c93cd48-9492-400e-bdef-14a55934a4ae" name="SOAP Fault"/><con:assertion type="Schema Compliance" id="cb786a19-2cce-4f21-a857-ef1ef96f79af" name="Schema Compliance"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.oorsprong.org/websamples.countryinfo/CountryInfoServiceSoapType/CountryCurrencyRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="AssertionJSON" id="c2c93ad5-7f02-4910-a91b-15275abc9082"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+def responseMessage = messageExchange.responseContent
+def json = new JsonSlurper().parseText(responseMessage)
+
+//assert node values
+//log.info json.name
+
+assert json.capital.toString() ! = null
+assert json.name.toString() == "[Taiwan]"
+//========</script></con:config></con:testStep><con:testStep type="groovy" name="AssertionXML" id="a2c64e92-fd4f-4877-9981-ff88b8cfdf77"><con:settings/><con:config><script>// check response time
 assert messageExchange.timeTaken &lt; 900
 
 // check for endpoint
@@ -1142,22 +1161,4 @@ assert currencyName == "Rupees"
 
 // 
 
-</script></con:config></con:testStep><con:testStep type="request" id="1ecd3d97-bb68-4311-86ab-9475b335a339" name="CountryCurrency"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CountryInfoServiceSoapBinding</con:interface><con:operation>CountryCurrency</con:operation><con:request name="CountryCurrency" id="9a076016-4804-46d9-94b6-74f84cf083c4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://www.oorsprong.org/websamples.countryinfo">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <web:CountryCurrency>\r
-         <web:sCountryISOCode>IN</web:sCountryISOCode>\r
-      </web:CountryCurrency>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="3fe7a207-5ec3-4838-9d34-6b534d2be5fd" name="Contains"><con:configuration><token>INR</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple NotContains" id="a55779ac-b9c0-423d-8b99-2748ed6f623f" name="Not Contains"><con:configuration><token>Nigeria</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="XPath Match" id="8a5f5565-83a3-47e3-9204-3e9cfafc9cce" name="XPath Match"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
-declare namespace m='http://www.oorsprong.org/websamples.countryinfo';
-
-//m:sName</path><content>Rupees</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" id="6dc6142c-5213-4bb8-8974-cb2d7edc860c"><con:configuration/></con:assertion><con:assertion type="XQuery Match" id="70ed7673-6fd3-4bfc-8d18-256d34d1bddb" name="XQuery Match"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="ed1933e7-6a94-4ed8-906c-299ef36102bc" name="Not SOAP Fault"/><con:assertion type="Not SOAP Fault Assertion" id="0c93cd48-9492-400e-bdef-14a55934a4ae" name="SOAP Fault"/><con:assertion type="Schema Compliance" id="cb786a19-2cce-4f21-a857-ef1ef96f79af" name="Schema Compliance"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.oorsprong.org/websamples.countryinfo/CountryInfoServiceSoapType/CountryCurrencyRequest" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="AssertionJSON" id="c2c93ad5-7f02-4910-a91b-15275abc9082"><con:settings/><con:config><script>import groovy.json.JsonSlurper
-def responseMessage = messageExchange.responseContent
-def json = new JsonSlurper().parseText(responseMessage)
-
-//assert node values
-//log.info json.name
-
-assert json.capital.toString() ! = null
-assert json.name.toString() == "[Taiwan]"</script></con:config></con:testStep><con:properties><con:property><con:name>Name</con:name><con:value>This is TestSuite Project</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
+</script></con:config></con:testStep><con:properties><con:property><con:name>Name</con:name><con:value>This is TestSuite Project</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
